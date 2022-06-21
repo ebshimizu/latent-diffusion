@@ -237,10 +237,10 @@ class DDIMSampler(object):
             img, pred_x0 = outs
             if callback:
                 await callback(i, client_id)
-            if img_callback:
-                await img_callback(pred_x0, i, client_id)
 
             if index % log_every_t == 0 or index == total_steps - 1:
+                if img_callback:
+                    await img_callback(pred_x0, i, client_id)
                 intermediates["x_inter"].append(img)
                 intermediates["pred_x0"].append(pred_x0)
 
